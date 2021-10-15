@@ -164,8 +164,9 @@ describe("get", function () {
   test("not found if no such company", async function () {
     try {
       await Company.get("nope");
-      // fail();
+      fail();
     } catch (err) {
+      console.log("err", err);
       expect(err instanceof NotFoundError).toBeTruthy();
     }
   });

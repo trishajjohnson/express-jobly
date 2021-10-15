@@ -128,6 +128,8 @@ class Company {
 
     const company = companyRes.rows[0];
     
+    if (!company) throw new NotFoundError(`No company: ${handle}`);
+    
     const companyJobs = await db.query(`SELECT id, 
                                                title, 
                                                salary, 
@@ -139,7 +141,6 @@ class Company {
 
     company.jobs = companyJobs.rows;
     
-    if (!company) throw new NotFoundError(`No company: ${handle}`);
 
     return company;
   }
