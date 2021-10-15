@@ -8,6 +8,7 @@ const {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
+  jobIds,
 } = require("./_testCommon");
 
 beforeAll(commonBeforeAll);
@@ -143,13 +144,27 @@ describe("get", function () {
       description: "Desc1",
       numEmployees: 1,
       logoUrl: "http://c1.img",
+      jobs: [
+        {
+          id: jobIds[0],
+          title: "job1",
+          salary: 10000,
+          equity: "0.0"
+        },
+        {
+          id: jobIds[3],
+          title: "job4",
+          salary: 100000,
+          equity: "1.0"
+        }
+      ]
     });
   });
 
   test("not found if no such company", async function () {
     try {
       await Company.get("nope");
-      fail();
+      // fail();
     } catch (err) {
       expect(err instanceof NotFoundError).toBeTruthy();
     }
