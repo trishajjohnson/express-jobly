@@ -216,17 +216,20 @@ class User {
     if (!user) throw new NotFoundError(`No user: ${username}`);
   }
 
+  // Function for user to apply to a job
+
   static async applyToJob(username, jobId) {
+    // First checks if user exists
     let userResult = await db.query(`SELECT username FROM users WHERE username=$1`, [username]);
     let user = userResult.rows[0];
 
     if(!user) throw new NotFoundError(`No user: ${username}`);
-    
+    // Checks if job exists
     let jobResult = await db.query(`SELECT id FROM jobs WHERE id=$1`, [jobId]);
     let job = jobResult.rows[0];
 
     if(!job) throw new NotFoundError(`No job: ${jobId}`);
-    
+    // Inserts application to DB
     await db.query(
           `INSERT INTO applications (username, job_id)
            VALUES ($1, $2)`,

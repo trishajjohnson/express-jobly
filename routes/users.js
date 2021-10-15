@@ -107,7 +107,7 @@ router.patch("/:username", ensureAdminOrCorrectUser, async function (req, res, n
 
 /** DELETE /[username]  =>  { deleted: username }
  *
- * Authorization required: login
+ * Authorization required: Admin or correct User
  **/
 
 router.delete("/:username", ensureAdminOrCorrectUser, async function (req, res, next) {
@@ -118,6 +118,12 @@ router.delete("/:username", ensureAdminOrCorrectUser, async function (req, res, 
     return next(err);
   }
 });
+
+
+/** POST /[username]/jobs/[id]  =>  { deleted: username }
+ *
+ * Authorization required: Admin or correct user
+ **/
 
 router.post("/:username/jobs/:id", ensureAdminOrCorrectUser, async function (req, res, next) {
   try {
